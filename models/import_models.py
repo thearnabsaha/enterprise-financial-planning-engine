@@ -100,6 +100,10 @@ class FilePreview(BaseModel):
     column_mappings: list[ColumnMapping] = []
 
 
+# Alias for compatibility
+ParsedFile = FilePreview
+
+
 class ValidationSummary(BaseModel):
     """Aggregated validation results for display."""
     total_rows: int = 0

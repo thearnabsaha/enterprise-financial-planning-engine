@@ -13,6 +13,7 @@ def format_currency(
     currency: str = "EUR",
     show_sign: bool = True,
     compact: bool = False,
+    prefix: Optional[str] = None,
 ) -> str:
     """
     Format a monetary amount with currency symbol.
@@ -28,7 +29,7 @@ def format_currency(
         return "—"
 
     symbols = {"EUR": "€", "USD": "$", "GBP": "£", "CHF": "CHF "}
-    symbol = symbols.get(currency, f"{currency} ")
+    symbol = prefix if prefix is not None else symbols.get(currency, f"{currency} ")
 
     value = Decimal(str(amount))
 

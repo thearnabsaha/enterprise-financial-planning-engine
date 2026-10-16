@@ -49,6 +49,13 @@ def render_kpi_card(
             <span>{var_text}{pct_str}</span>
         </div>
         """
+    elif variance_pct is not None:
+        delta_html = f"""
+        <div class="kpi-delta {delta_class}">
+            <span class="{badge_class}">{favourability.upper()}</span>
+            <span>{float(variance_pct):+.1f}%</span>
+        </div>
+        """
     elif comparison_value is not None:
         comp_fmt = format_currency(comparison_value) if not is_percentage else f"{float(comparison_value):.2f}%"
         delta_html = f"<div class='kpi-delta kpi-neutral'>vs Budget: {comp_fmt}</div>"

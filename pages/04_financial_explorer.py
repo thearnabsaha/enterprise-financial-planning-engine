@@ -24,38 +24,43 @@ render_header(
     scenario_label=filters.scenario,
 )
 
+with get_session() as session:
+    all_accounts = repo.get_all_accounts(session)
+    all_periods = repo.get_all_periods(session)
+    all_depts = repo.get_all_departments(session)
+    all_scenarios = repo.get_all_scenarios(session)
+
+    acct_map = {a.id: f"{a.code} - {a.name}" for a in all_accounts}
+    period_map = {p.id: p.period_key for p in all_periods}
+    dept_map = {d.code: d.id for d in all_depts}
+    period_keys = [p.period_key for p in all_periods]
+    scenario_names = [sc.name for sc in all_scenarios]
+    dept_codes = [d.code for d in all_depts]
+
 tab_pivot, tab_cube = st.tabs(["📊 Financial Matrix Pivot", "🧊 TinyOlap Cell Inspector"])
 
 with tab_pivot:
     st.subheader("Financial Matrix (Accounts × Periods)")
 
-    with get_session() as s:
-        accounts = repo.get_all_accounts(s)
-        periods = repo.get_all_periods(s)
-        depts = repo.get_all_departments(s)
+    dept_options = ["COMPANY"] + [c for c in dept_codes if c != "COMPANY"]
+    selected_dept = st.selectbox(
+        "Department Filter:",
+        options=dept_options,
+        format_func=lambda c: f"{c} - Consolidated" if c == "COMPANY" else c,
+    )
 
-        selected_dept = st.selectbox(
-            "Department Filter:",
-            options=["COMPANY"] + [d.code for d in depts if d.code != "COMPANY"],
-            format_func=lambda c: f"{c} - Consolidated" if c == "COMPANY" else c,
-        )
+    dept_id = None
+    if selected_dept != "COMPANY" and selected_dept in dept_map:
+        dept_id = [dept_map[selected_dept]]
 
-        dept_id = None
-        if selected_dept != "COMPANY":
-            d_obj = repo.get_department_by_code(s, selected_dept)
-            if d_obj:
-                dept_id = [d_obj.id]
-
+    with get_session() as session:
         facts = repo.get_financial_facts(
-            session=s,
+            session=session,
             scenario_name=filters.scenario,
             start_period=filters.start_period,
             end_period=filters.end_period,
             department_ids=dept_id,
         )
-
-        acct_map = {a.id: f"{a.code} - {a.name}" for a in accounts}
-        period_map = {p.id: p.period_key for p in periods}
 
         pivot_data = []
         for f in facts:
@@ -65,12 +70,12 @@ with tab_pivot:
                 "Amount": float(f.amount),
             })
 
-        if pivot_data:
-            df_pivot = pd.DataFrame(pivot_data)
-            pivoted = df_pivot.pivot_table(index="Account", columns="Period", values="Amount", aggfunc="sum").fillna(0)
-            st.dataframe(pivoted.style.format("€ {:,.2f}"), use_container_width=True)
-        else:
-            st.info("No records found for the selected scope.")
+    if pivot_data:
+        df_pivot = pd.DataFrame(pivot_data)
+        pivoted = df_pivot.pivot_table(index="Account", columns="Period", values="Amount", aggfunc="sum").fillna(0)
+        st.dataframe(pivoted.style.format("€ {:,.2f}"), use_container_width=True)
+    else:
+        st.info("No records found for the selected scope.")
 
 with tab_cube:
     st.subheader("Direct TinyOlap Cube Cell Query")
@@ -80,11 +85,12 @@ with tab_cube:
     with c_col1:
         q_acc = st.selectbox("Account (Leaf, Consolidation, or Rule)", ["REV", "TOTAL_OPEX", "Operating Profit", "Operating Margin", "SAL", "CLOUD", "SW", "MKT_EXP"])
     with c_col2:
-        q_dept = st.selectbox("Department", ["COMPANY", "ENG", "SALES", "MKT", "OPS", "FIN"])
+        q_dept = st.selectbox("Department", ["COMPANY"] + [c for c in dept_codes if c != "COMPANY"])
     with c_col3:
-        q_period = st.selectbox("Period", [p.period_key for p in periods])
+        q_period = st.selectbox("Period", period_keys)
     with c_col4:
-        q_scenario = st.selectbox("Scenario", [s.name for s in repo.get_all_scenarios(s)])
+        scenario_idx = scenario_names.index(filters.scenario) if filters.scenario in scenario_names else 0
+        q_scenario = st.selectbox("Scenario", scenario_names, index=scenario_idx)
 
     adapter = get_olap_adapter()
     cell_val = adapter.get_cell(q_acc, q_dept, q_period, q_scenario)

@@ -394,17 +394,15 @@ def get_validation_errors_for_batch(session: Session, batch_id: int) -> list[Val
 
 
 def get_forecast_assumptions(
-    session: Session, scenario_id: int, version_id: int,
+    session: Session, scenario_id: int, version_id: Optional[int] = None,
 ) -> list[ForecastAssumptionTable]:
-    """Get all forecast assumptions for a scenario and version."""
-    return (
-        session.query(ForecastAssumptionTable)
-        .filter(
-            ForecastAssumptionTable.scenario_id == scenario_id,
-            ForecastAssumptionTable.version_id == version_id,
-        )
-        .all()
+    """Get all forecast assumptions for a scenario (and optional version)."""
+    query = session.query(ForecastAssumptionTable).filter(
+        ForecastAssumptionTable.scenario_id == scenario_id
     )
+    if version_id is not None:
+        query = query.filter(ForecastAssumptionTable.version_id == version_id)
+    return query.all()
 
 
 def upsert_forecast_assumption(session: Session, **kwargs) -> ForecastAssumptionTable:
