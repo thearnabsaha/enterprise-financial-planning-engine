@@ -12,7 +12,7 @@ def render_header(
     period_label: str = "All Available Periods",
     scenario_label: str = "Actuals vs Budget",
 ) -> None:
-    """Render top enterprise header with company branding and metadata."""
+    """Render top enterprise header with company branding and metadata using st.html."""
     html = f"""
     <div class="northstar-header">
         <div>
@@ -20,28 +20,30 @@ def render_header(
             <div class="northstar-subtitle">{subtitle}</div>
         </div>
         <div style="text-align: right;">
-            <div style="display: flex; gap: 8px; justify-content: flex-end; margin-bottom: 4px;">
-                <span class="northstar-badge" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4);">
-                    Scope: {scenario_label}
+            <div style="display: flex; gap: 8px; justify-content: flex-end; margin-bottom: 6px; flex-wrap: wrap;">
+                <span class="northstar-badge" style="background: rgba(59, 130, 246, 0.16); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.35);">
+                    🎯 Scope: {scenario_label}
                 </span>
-                <span class="northstar-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);">
-                    {period_label}
+                <span class="northstar-badge" style="background: rgba(16, 185, 129, 0.16); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35);">
+                    📅 {period_label}
                 </span>
             </div>
-            <div style="font-size: 11px; color: #64748b;">IBM TM1 Multidimensional Engine • Precision Decimal</div>
+            <div style="font-size: 11px; color: #94a3b8; font-weight: 500;">
+                <span style="display: inline-block; width: 7px; height: 7px; background: #10b981; border-radius: 50%; margin-right: 5px; box-shadow: 0 0 6px #10b981;"></span>
+                TinyOlap 4D Multidimensional Cube • Certified Decimal Precision
+            </div>
         </div>
     </div>
     """
-    st.markdown(html, unsafe_allow_html=True)
+    st.html(html)
 
 
 def render_footer() -> None:
-    """Render standard footer disclaimer."""
-    st.markdown("---")
-    st.markdown(
-        "<div style='text-align: center; font-size: 12px; color: #64748b; padding: 12px 0;'>"
-        "<strong>Northstar Digital Services GmbH</strong> — Enterprise Financial Planning & Forecasting Engine<br>"
-        "Architecture: TinyOlap Multidimensional Cube • PostgreSQL/SQLite Relational Store • Streamlit Presentation"
-        "</div>",
-        unsafe_allow_html=True,
-    )
+    """Render standard footer disclaimer using st.html."""
+    html = """
+    <div style="margin-top: 36px; padding: 18px 0; border-top: 1px solid rgba(51, 65, 85, 0.7); text-align: center; font-size: 12px; color: #64748b; line-height: 1.6;">
+        <strong style="color: #94a3b8;">Northstar Digital Services GmbH</strong> — Enterprise Financial Planning & Forecasting Engine<br>
+        <span style="font-size: 11px; color: #475569;">Architecture: TinyOlap Multidimensional Cube • PostgreSQL/SQLite Relational Store • Streamlit Presentation</span>
+    </div>
+    """
+    st.html(html)

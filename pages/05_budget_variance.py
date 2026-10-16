@@ -55,14 +55,14 @@ with col2:
 with col3:
     st.metric("Operating Expense Variance", f"€ {float(kpis.get('expenses_variance', 0)):+,.2f}")
 
-st.markdown("""
+st.html("""
 <div class="info-callout">
 <strong>Financial Sign Convention:</strong>
 Revenue is represented as a positive amount (+), while Operating Expenses are represented as negative amounts (-).
 For revenue, a positive variance represents higher income (<strong>FAVOURABLE</strong>).
 For expenses, actual costs that are <em>more negative</em> than budget represent overspending (<strong>UNFAVOURABLE</strong>).
 </div>
-""", unsafe_allow_html=True)
+""")
 
 # 3. Waterfall Bridge
 st.subheader("Profit Bridge: Walk from Budget to Actual (€)")
