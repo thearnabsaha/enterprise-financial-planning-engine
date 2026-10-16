@@ -24,12 +24,12 @@ def operating_profit(revenue: Decimal, expenses: Decimal) -> Decimal:
     return (Decimal(str(revenue)) + Decimal(str(expenses))).quantize(TWO_DP, rounding=ROUND_HALF_UP)
 
 
-def operating_margin(revenue: Decimal, profit: Decimal) -> Optional[Decimal]:
+def operating_margin(profit: Decimal, revenue: Decimal) -> Optional[Decimal]:
     """
     Operating Margin = (Operating Profit / Revenue) × 100.
     Returns None if revenue is zero.
 
-    >>> operating_margin(Decimal("100000"), Decimal("40000"))
+    >>> operating_margin(Decimal("40000"), Decimal("100000"))
     Decimal('40.00')
     """
     rev = Decimal(str(revenue))
@@ -66,6 +66,11 @@ def year_over_year_change(current: Decimal, prior_year: Decimal) -> Optional[Dec
         return None
     curr = Decimal(str(current))
     return ((curr - prior) / abs(prior) * HUNDRED).quantize(TWO_DP, rounding=ROUND_HALF_UP)
+
+
+# Aliases for convenience
+month_over_month_growth = month_over_month_change
+year_over_year_growth = year_over_year_change
 
 
 def expense_ratio(expenses: Decimal, revenue: Decimal) -> Optional[Decimal]:

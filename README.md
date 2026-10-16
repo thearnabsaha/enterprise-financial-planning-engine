@@ -365,6 +365,7 @@ enterprise-financial-planning-engine/
 
 | Document | Description |
 |----------|-------------|
+| [System Architecture & Key Decisions](docs/system_architecture_and_key_decisions.md) | **In-depth engineering rationale & design decisions** |
 | [Architecture](docs/architecture.md) | System design and component diagrams |
 | [Data Flow](docs/data_flow.md) | End-to-end data pipeline |
 | [Database Schema](docs/database_schema.md) | Table definitions, constraints, indexes |

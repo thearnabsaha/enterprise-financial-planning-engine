@@ -57,12 +57,12 @@ if file_bytes is not None:
     st.subheader(f"Step 1 & 2: File Inspection — `{filename}`")
 
     # Inspect file
-    parsed = ImportService.inspect_file(file_bytes, filename)
+    df_raw, parsed = ImportService.inspect_file(file_bytes, filename)
     col_m1, col_m2, col_m3, col_m4 = st.columns(4)
     with col_m1:
-        st.metric("Total Rows", f"{parsed.total_rows:,}")
+        st.metric("Total Rows", f"{parsed.row_count:,}")
     with col_m2:
-        st.metric("Columns", len(parsed.columns))
+        st.metric("Columns", len(parsed.detected_columns))
     with col_m3:
         st.metric("File Size", f"{parsed.file_size_bytes / 1024:.1f} KB")
     with col_m4:
@@ -70,18 +70,18 @@ if file_bytes is not None:
 
     # Raw preview
     with st.expander("Preview Raw Data (First 15 Rows)", expanded=False):
-        st.dataframe(parsed.preview_df, use_container_width=True)
+        st.dataframe(pd.DataFrame(parsed.preview_rows), use_container_width=True)
 
     # Step 3: Column Mapping
     st.subheader("Step 3: Column Mapping")
-    auto_mappings = ImportService.get_auto_mapping(parsed.columns)
+    auto_mappings = ImportService.get_auto_mapping(parsed.detected_columns)
 
     st.markdown("Verify or adjust target field mappings:")
     target_fields = ["department", "account", "period", "date", "scenario", "version", "currency", "amount", "ignore"]
 
     col_map_inputs = {}
-    cols = st.columns(min(len(parsed.columns), 4))
-    for idx, col_name in enumerate(parsed.columns):
+    cols = st.columns(min(len(parsed.detected_columns), 4))
+    for idx, col_name in enumerate(parsed.detected_columns):
         col_container = cols[idx % 4]
         default_target = auto_mappings.get(col_name, "ignore")
         target_idx = target_fields.index(default_target) if default_target in target_fields else 0

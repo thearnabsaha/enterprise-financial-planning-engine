@@ -162,6 +162,10 @@ class KPISummary(BaseModel):
     data_freshness: Optional[datetime] = None
 
 
+# Alias for compatibility
+FinancialKPIs = KPISummary
+
+
 class MonthlyMetric(BaseModel):
     """Monthly financial metric for trend charts."""
     period_key: str

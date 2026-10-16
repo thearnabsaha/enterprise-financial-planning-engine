@@ -68,6 +68,10 @@ def format_percentage(
     return f"{sign}{v:.2f}%"
 
 
+# Alias for convenience
+format_percent = format_percentage
+
+
 def format_number(
     value: Optional[Decimal],
     decimals: int = 2,

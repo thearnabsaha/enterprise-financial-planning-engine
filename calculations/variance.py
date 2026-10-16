@@ -64,6 +64,10 @@ def variance_percentage(
         return None
 
 
+# Alias for convenience
+variance_pct = variance_percentage
+
+
 def classify_favourability(
     category: AccountCategory,
     variance: Decimal,

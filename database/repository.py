@@ -186,12 +186,35 @@ def get_financial_facts(
     scenario_ids: Optional[list[int]] = None,
     version_ids: Optional[list[int]] = None,
     currency: Optional[str] = None,
+    scenario_name: Optional[str] = None,
+    start_period: Optional[str] = None,
+    end_period: Optional[str] = None,
+    account_id: Optional[int] = None,
 ) -> list[FinancialFactTable]:
     """Query financial facts with optional filters."""
     query = session.query(FinancialFactTable)
 
-    if period_ids:
+    if scenario_name:
+        scn = get_scenario_by_name(session, scenario_name)
+        if scn:
+            query = query.filter(FinancialFactTable.scenario_id == scn.id)
+        else:
+            return []
+
+    if account_id:
+        query = query.filter(FinancialFactTable.account_id == account_id)
+
+    if start_period or end_period:
+        p_query = session.query(PeriodTable.id)
+        if start_period:
+            p_query = p_query.filter(PeriodTable.period_key >= start_period)
+        if end_period:
+            p_query = p_query.filter(PeriodTable.period_key <= end_period)
+        p_ids = [r[0] for r in p_query.all()]
+        query = query.filter(FinancialFactTable.period_id.in_(p_ids))
+    elif period_ids:
         query = query.filter(FinancialFactTable.period_id.in_(period_ids))
+
     if department_ids:
         query = query.filter(FinancialFactTable.department_id.in_(department_ids))
     if account_ids:
@@ -506,3 +529,7 @@ def get_data_statistics(session: Session) -> dict:
         "import_batches": session.query(func.count(ImportBatchTable.id)).scalar() or 0,
         "audit_events": session.query(func.count(AuditEventTable.id)).scalar() or 0,
     }
+
+
+# Alias for convenience
+get_table_counts = get_data_statistics

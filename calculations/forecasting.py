@@ -167,3 +167,8 @@ def calculate_forecast_operating_profit(
         profit = (Decimal(str(rev)) + Decimal(str(exp))).quantize(TWO_DP, rounding=ROUND_HALF_UP)
         results.append(profit)
     return results
+
+
+# Aliases for service compatibility
+baseline_linear_forecast = baseline_forecast
+calculate_scenario_forecast = scenario_forecast

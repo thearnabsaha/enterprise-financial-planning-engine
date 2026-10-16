@@ -37,18 +37,28 @@ class ImportService:
 
     @staticmethod
     def inspect_file(
-        file_source: Union[str, BinaryIO],
+        file_source: Union[bytes, str, BinaryIO, Path],
         filename: str,
         worksheet_name: Optional[str] = None,
-    ) -> ParsedFile:
+    ):
         """Parse an uploaded file and extract preview and metadata."""
-        return parse_file(file_source, filename, worksheet_name)
+        from pathlib import Path
+        if isinstance(file_source, bytes):
+            content = file_source
+        elif hasattr(file_source, "read"):
+            content = file_source.read()
+        elif isinstance(file_source, (str, Path)):
+            with open(file_source, "rb") as f:
+                content = f.read()
+        else:
+            content = bytes(file_source)
+        return parse_file(content, filename, worksheet_name)
 
     @staticmethod
     def get_auto_mapping(columns: list[str]) -> dict[str, str]:
         """Automatically detect column mappings based on aliases."""
-        mapping_result = auto_map_columns(columns)
-        return mapping_result.mapping
+        mapping_list = auto_map_columns(columns)
+        return {m.source_column: m.target_field for m in mapping_list}
 
     @classmethod
     def execute_import(
