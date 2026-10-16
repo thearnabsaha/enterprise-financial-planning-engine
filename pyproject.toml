@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "enterprise-financial-planning-engine"
+version = "1.0.0"
+description = "Enterprise Financial Planning & Forecasting Engine — a portfolio application demonstrating multidimensional financial planning, budgeting, forecasting, and variance analysis."
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Arnab Saha"}
+]
+keywords = [
+    "financial-planning",
+    "budgeting",
+    "forecasting",
+    "olap",
+    "variance-analysis",
+    "streamlit",
+    "tinyolap",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/enterprise-financial-planning-engine"
+Repository = "https://github.com/yourusername/enterprise-financial-planning-engine"
+Documentation = "https://github.com/yourusername/enterprise-financial-planning-engine/tree/main/docs"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short --strict-markers"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests requiring database connectivity",
+    "unit: marks pure unit tests",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.isort]
+profile = "black"
+line_length = 100

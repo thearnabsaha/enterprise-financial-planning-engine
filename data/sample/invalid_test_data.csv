@@ -1,0 +1,12 @@
+date,period,department,account,scenario,version,currency,amount,_error_type
+2024-01-01,2024-01,ENG,REV,Actuals,v1,EUR,320000,duplicate
+2024-01-01,2024-01,ENG,REV,Actuals,v1,EUR,320000,duplicate
+2024-02-01,2024-02,SALES,,Actuals,v1,EUR,450000,missing_account
+2024-03-01,2024-03,INVALID_DEPT,REV,Actuals,v1,EUR,100000,invalid_department
+not-a-date,2024-04,ENG,SAL,Actuals,v1,EUR,-180000,invalid_date
+2024-05-01,2024-05,MKT,MKT_EXP,Actuals,v1,EUR,,missing_amount
+2024-06-01,2024-06,OPS,RENT,Actuals,v1,EUR,abc123,malformed_amount
+2024-07-01,2024-07,FIN,PROF,Actuals,v1,XYZ,-15000,unsupported_currency
+2024-08-01,2024-08,ENG,CLOUD,,v1,EUR,-45000,missing_scenario
+2024-09-01,2024-09,SALES,FAKE_ACC,Actuals,v1,EUR,500000,unknown_account
+2024-10-01,Oct-2024,ENG,SW,Actuals,v1,EUR,-12000,invalid_period_format

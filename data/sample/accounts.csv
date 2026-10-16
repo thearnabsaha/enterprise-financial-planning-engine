@@ -1,0 +1,14 @@
+account_code,account_name,category,sign_convention,parent_code
+REV,Revenue,revenue,1,
+TOTAL_OPEX,Total Operating Expenses,expense,-1,
+SAL,Salaries and Benefits,expense,-1,TOTAL_OPEX
+CLOUD,Cloud Infrastructure,expense,-1,TOTAL_OPEX
+SW,Software Subscriptions,expense,-1,TOTAL_OPEX
+MKT_EXP,Marketing Expenses,expense,-1,TOTAL_OPEX
+RENT,Rent and Facilities,expense,-1,TOTAL_OPEX
+TRAVEL,Travel and Entertainment,expense,-1,TOTAL_OPEX
+PROF,Professional Services,expense,-1,TOTAL_OPEX
+DEPR,Depreciation,expense,-1,TOTAL_OPEX
+TRAIN,Training and Development,expense,-1,TOTAL_OPEX
+INSUR,Insurance,expense,-1,TOTAL_OPEX
+OTHER,Other Operating Expenses,expense,-1,TOTAL_OPEX

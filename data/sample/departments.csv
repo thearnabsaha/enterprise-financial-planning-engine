@@ -1,0 +1,7 @@
+department_code,department_name,parent_code
+COMPANY,Northstar Digital Services GmbH,
+ENG,Engineering,COMPANY
+SALES,Sales,COMPANY
+MKT,Marketing,COMPANY
+OPS,Operations,COMPANY
+FIN,Finance,COMPANY

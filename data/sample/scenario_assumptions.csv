@@ -1,0 +1,31 @@
+scenario,assumption_key,assumption_value,department,account,description
+Forecast v1,revenue_growth_rate,0.06,,,Revenue Growth Rate for Forecast v1
+Forecast v1,salary_growth_rate,0.04,,,Salary Growth Rate for Forecast v1
+Forecast v1,cloud_cost_growth_rate,0.08,,,Cloud Cost Growth Rate for Forecast v1
+Forecast v1,marketing_budget_adjustment,0.02,,,Marketing Budget Adjustment for Forecast v1
+Forecast v1,rent_escalation_rate,0.03,,,Rent Escalation Rate for Forecast v1
+Forecast v1,travel_adjustment,0.01,,,Travel Adjustment for Forecast v1
+Forecast v1,software_cost_growth,0.05,,,Software Cost Growth for Forecast v1
+Forecast v1,professional_services_adjustment,0.02,,,Professional Services Adjustment for Forecast v1
+Forecast v1,depreciation_rate,0.01,,,Depreciation Rate for Forecast v1
+Forecast v1,other_expense_growth,0.02,,,Other Expense Growth for Forecast v1
+Optimistic Scenario,revenue_growth_rate,0.15,,,Revenue Growth Rate for Optimistic Scenario
+Optimistic Scenario,salary_growth_rate,0.05,,,Salary Growth Rate for Optimistic Scenario
+Optimistic Scenario,cloud_cost_growth_rate,0.06,,,Cloud Cost Growth Rate for Optimistic Scenario
+Optimistic Scenario,marketing_budget_adjustment,0.08,,,Marketing Budget Adjustment for Optimistic Scenario
+Optimistic Scenario,rent_escalation_rate,0.03,,,Rent Escalation Rate for Optimistic Scenario
+Optimistic Scenario,travel_adjustment,0.05,,,Travel Adjustment for Optimistic Scenario
+Optimistic Scenario,software_cost_growth,0.04,,,Software Cost Growth for Optimistic Scenario
+Optimistic Scenario,professional_services_adjustment,0.03,,,Professional Services Adjustment for Optimistic Scenario
+Optimistic Scenario,depreciation_rate,0.01,,,Depreciation Rate for Optimistic Scenario
+Optimistic Scenario,other_expense_growth,0.02,,,Other Expense Growth for Optimistic Scenario
+Conservative Scenario,revenue_growth_rate,0.02,,,Revenue Growth Rate for Conservative Scenario
+Conservative Scenario,salary_growth_rate,0.03,,,Salary Growth Rate for Conservative Scenario
+Conservative Scenario,cloud_cost_growth_rate,0.1,,,Cloud Cost Growth Rate for Conservative Scenario
+Conservative Scenario,marketing_budget_adjustment,-0.05,,,Marketing Budget Adjustment for Conservative Scenario
+Conservative Scenario,rent_escalation_rate,0.03,,,Rent Escalation Rate for Conservative Scenario
+Conservative Scenario,travel_adjustment,-0.1,,,Travel Adjustment for Conservative Scenario
+Conservative Scenario,software_cost_growth,0.03,,,Software Cost Growth for Conservative Scenario
+Conservative Scenario,professional_services_adjustment,0.0,,,Professional Services Adjustment for Conservative Scenario
+Conservative Scenario,depreciation_rate,0.01,,,Depreciation Rate for Conservative Scenario
+Conservative Scenario,other_expense_growth,0.01,,,Other Expense Growth for Conservative Scenario
